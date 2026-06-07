@@ -1,7 +1,9 @@
+import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { Card } from '@/components/ui/Card'
-import { Globe, Phone, MapPin, Clock } from 'lucide-react'
+import { serviceTypeLabel } from '@/lib/utils'
+import { Globe, Phone, MapPin, Clock, ArrowLeft } from 'lucide-react'
 
 export default async function GoldenPageListing({
   params,
@@ -21,8 +23,14 @@ export default async function GoldenPageListing({
 
   return (
     <div className="mx-auto max-w-3xl px-6 py-20">
+      <Link
+        href="/golden-pages"
+        className="mb-8 inline-flex items-center gap-2 text-sm text-muted hover:text-cream"
+      >
+        <ArrowLeft size={16} /> Back to Directory
+      </Link>
       <p className="text-xs uppercase tracking-[0.2em] text-gold-soft">
-        {listing.service_type ?? 'Business'}
+        {serviceTypeLabel(listing.service_type)}
       </p>
       <h1 className="mt-2 font-display text-5xl font-medium text-cream">
         {listing.business_name ?? 'Unnamed business'}

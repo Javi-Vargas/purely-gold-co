@@ -1,10 +1,7 @@
-import { Shell } from '@/components/layout/Shell'
-import { Placeholder } from '@/components/ui/Placeholder'
+import { redirect } from 'next/navigation'
 
+// Listing setup and editing share one editor. The signup trigger already creates
+// the golden_pages_profiles row, so "setup" is just the editor in its initial state.
 export default function Page() {
-  return (
-    <Shell title="Set Up Your Listing">
-      <Placeholder note="Golden Pages listing setup arrives in the Week 9 sprint." />
-    </Shell>
-  )
+  redirect('/golden-pages/edit')
 }
