@@ -4,17 +4,7 @@ import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { Button } from '@/components/ui/Button'
 import { Card, CardTitle, CardDescription } from '@/components/ui/Card'
-import {
-  Sparkles,
-  Users,
-  PenLine,
-  CalendarRange,
-  Camera,
-  Type,
-  Calculator,
-  Palette,
-  ArrowRight,
-} from 'lucide-react'
+import { Search, PhoneCall, Store, ArrowRight } from 'lucide-react'
 
 const fadeUp = {
   hidden: { opacity: 0, y: 16 },
@@ -25,33 +15,21 @@ const fadeUp = {
   }),
 }
 
-const tools = [
-  { icon: PenLine, name: 'Campaign Brief Builder', desc: 'A rough idea becomes a complete, professional creative brief.' },
-  { icon: CalendarRange, name: 'Content Strategy Generator', desc: 'A platform-by-platform content calendar, week by week.' },
-  { icon: Camera, name: 'Shot List Generator', desc: 'A detailed shoot list from campaign type and deliverables.' },
-  { icon: Type, name: 'Caption & Copy Writer', desc: 'Captions, ad headlines, subject lines — on brand, on length.' },
-  { icon: Calculator, name: 'Budget Planner', desc: 'Itemised production cost ranges before you hire anyone.' },
-  { icon: Palette, name: 'Mood Board Generator', desc: 'Visual direction, palette, and styling notes to share.' },
-]
-
-const roles = [
+const steps = [
   {
-    title: 'I need campaign support',
-    desc: 'Plan and build complete campaigns with AI tools, then hire vetted pros when you’re ready.',
-    href: '/signup?role=client',
-    cta: 'Request Access — $5/mo',
+    icon: Search,
+    title: 'Browse the directory',
+    desc: 'Explore vetted production businesses by service type — photographers, videographers, agencies, and more.',
   },
   {
-    title: 'I offer a service',
-    desc: 'Apply to the curated directory of photographers, videographers, agencies, and production companies.',
-    href: '/apply',
-    cta: 'Apply to the Directory',
+    icon: PhoneCall,
+    title: 'Connect directly',
+    desc: 'Call, visit a website, or stop by. You reach businesses directly — no account, no middleman.',
   },
   {
-    title: 'List my business',
-    desc: 'A lighter-weight public Golden Pages listing — be found without the full order flow.',
-    href: '/signup?role=golden_pages',
-    cta: 'List on Golden Pages',
+    icon: Store,
+    title: 'Get listed',
+    desc: 'Run a production business? Submit a request — once approved, your listing appears in the directory.',
   },
 ]
 
@@ -70,7 +48,7 @@ export default function LandingPage() {
         <div className="mx-auto max-w-4xl px-6 py-28 text-center">
           <motion.div initial="hidden" animate="show" variants={fadeUp} custom={0}>
             <span className="inline-flex items-center gap-2 rounded-full border border-gold/40 bg-gold/10 px-4 py-1.5 text-xs uppercase tracking-[0.2em] text-gold-soft">
-              By invitation
+              Production business directory
             </span>
           </motion.div>
           <motion.h1
@@ -80,9 +58,9 @@ export default function LandingPage() {
             custom={1}
             className="mt-8 font-display text-6xl font-medium leading-[1.05] text-cream md:text-7xl"
           >
-            Campaigns, coordinated.
+            Find production businesses.
             <br />
-            <span className="text-gold">Production, on demand.</span>
+            <span className="text-gold">Or get listed.</span>
           </motion.h1>
           <motion.p
             initial="hidden"
@@ -91,93 +69,62 @@ export default function LandingPage() {
             custom={2}
             className="mx-auto mt-6 max-w-2xl text-lg text-cream-dim"
           >
-            Plan, build, and execute marketing campaigns — independently with six AI
-            tools, or by hiring vetted production professionals through the platform.
-          </motion.p>
-          <motion.p
-            initial="hidden"
-            animate="show"
-            variants={fadeUp}
-            custom={3}
-            className="mt-4 text-sm text-muted"
-          >
-            The platform is not open to everyone. That exclusivity is the product.
+            Golden Pages is a curated directory of production businesses. Browse listings
+            and reach out directly — no account required.
           </motion.p>
           <motion.div
             initial="hidden"
             animate="show"
             variants={fadeUp}
-            custom={4}
+            custom={3}
             className="mt-10 flex flex-wrap items-center justify-center gap-4"
           >
-            <Link href="/signup?role=client">
+            <Link href="/golden-pages">
               <Button size="lg">
-                Request Access <ArrowRight size={18} />
+                View the Directory <ArrowRight size={18} />
               </Button>
             </Link>
-            <Link href="/pricing">
+            <Link href="/get-listed">
               <Button size="lg" variant="secondary">
-                See Pricing
+                Get Listed
               </Button>
             </Link>
           </motion.div>
         </div>
       </section>
 
-      {/* Two layers */}
-      <section className="mx-auto max-w-6xl px-6 py-16">
-        <div className="grid gap-6 md:grid-cols-2">
-          <Card>
-            <Sparkles className="text-gold" />
-            <CardTitle className="mt-4">Layer 1 — AI Campaign Tools</CardTitle>
-            <CardDescription>
-              Six AI-powered tools included with every subscription. Plan and build a
-              complete campaign on your own — real value from day one, no vendor required.
-            </CardDescription>
-          </Card>
-          <Card>
-            <Users className="text-gold" />
-            <CardTitle className="mt-4">Layer 2 — Vendor Directory</CardTitle>
-            <CardDescription>
-              A curated, vetted directory of photographers, videographers, agencies, and
-              production companies. Browse, hire, and manage orders end to end.
-            </CardDescription>
-          </Card>
-        </div>
-      </section>
-
-      {/* Tools grid */}
+      {/* How it works */}
       <section className="mx-auto max-w-6xl px-6 py-12">
-        <h2 className="font-display text-3xl font-medium text-cream">
-          Six tools, included
-        </h2>
-        <p className="mt-2 text-cream-dim">Everything you need to plan a campaign before you spend a dollar on production.</p>
-        <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {tools.map(({ icon: Icon, name, desc }) => (
-            <Card key={name} className="p-5">
-              <Icon className="text-gold" size={22} />
-              <h3 className="mt-3 font-medium text-cream">{name}</h3>
-              <p className="mt-1 text-sm text-cream-dim">{desc}</p>
+        <h2 className="font-display text-3xl font-medium text-cream">How it works</h2>
+        <div className="mt-8 grid gap-6 md:grid-cols-3">
+          {steps.map(({ icon: Icon, title, desc }) => (
+            <Card key={title}>
+              <Icon className="text-gold" />
+              <CardTitle className="mt-4">{title}</CardTitle>
+              <CardDescription>{desc}</CardDescription>
             </Card>
           ))}
         </div>
       </section>
 
-      {/* Role CTAs */}
+      {/* Get listed banner */}
       <section className="mx-auto max-w-6xl px-6 py-16">
-        <div className="grid gap-6 md:grid-cols-3">
-          {roles.map((r) => (
-            <Card key={r.title} className="flex flex-col">
-              <CardTitle className="text-xl">{r.title}</CardTitle>
-              <CardDescription className="flex-1">{r.desc}</CardDescription>
-              <Link href={r.href} className="mt-6">
-                <Button variant="secondary" className="w-full">
-                  {r.cta}
-                </Button>
-              </Link>
-            </Card>
-          ))}
-        </div>
+        <Card className="flex flex-col items-start gap-4 border-gold/20 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <h2 className="font-display text-2xl font-medium text-cream">
+              Run a production business?
+            </h2>
+            <p className="mt-2 max-w-xl text-sm text-cream-dim">
+              Get your name, contact info, and website in front of clients looking for
+              production services.
+            </p>
+          </div>
+          <Link href="/get-listed" className="flex-shrink-0">
+            <Button>
+              Get Listed <ArrowRight size={16} />
+            </Button>
+          </Link>
+        </Card>
       </section>
     </div>
   )

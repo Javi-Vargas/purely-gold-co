@@ -68,7 +68,7 @@ function SignupInner() {
     return (
       <div className="mx-auto max-w-3xl px-6 py-20">
         <h1 className="text-center font-display text-4xl font-medium text-cream">
-          How will you use Purely GOLD?
+          How will you use Golden Pages?
         </h1>
         <p className="mt-3 text-center text-cream-dim">
           Choose your account type. (Providers apply{' '}

@@ -11,19 +11,13 @@ export function PublicNav() {
           <Link href="/about" className="hover:text-cream">
             About
           </Link>
-          <Link href="/pricing" className="hover:text-cream">
-            Pricing
-          </Link>
           <Link href="/golden-pages" className="hover:text-cream">
-            Golden Pages
+            Business Directory
           </Link>
         </div>
         <div className="flex items-center gap-3">
-          <Link href="/login" className="text-sm text-cream-dim hover:text-cream">
-            Log in
-          </Link>
-          <Link href="/signup">
-            <Button size="sm">Request Access</Button>
+          <Link href="/get-listed">
+            <Button size="sm">Get Listed</Button>
           </Link>
         </div>
       </nav>

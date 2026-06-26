@@ -42,7 +42,7 @@ export default function LoginPage() {
     <div className="mx-auto max-w-md px-6 py-20">
       <Card>
         <CardTitle>Welcome back</CardTitle>
-        <CardDescription>Log in to your Purely GOLD account.</CardDescription>
+        <CardDescription>Log in to your Golden Pages account.</CardDescription>
         <form onSubmit={handleSubmit} className="mt-6 space-y-4">
           <div>
             <Label htmlFor="email">Email</Label>
@@ -73,7 +73,7 @@ export default function LoginPage() {
       <p className="mt-6 text-center text-sm text-cream-dim">
         Need an account?{' '}
         <Link href="/signup" className="text-gold hover:underline">
-          Request access
+          Sign up
         </Link>
       </p>
     </div>
