@@ -10,18 +10,15 @@ export function Footer() {
           <Link href="/about" className="hover:text-cream">
             About
           </Link>
-          <Link href="/pricing" className="hover:text-cream">
-            Pricing
-          </Link>
           <Link href="/golden-pages" className="hover:text-cream">
-            Golden Pages
+            Business Directory
           </Link>
-          <Link href="/apply" className="hover:text-cream">
-            Offer a service
+          <Link href="/get-listed" className="hover:text-cream">
+            Get Listed
           </Link>
         </div>
         <p className="text-xs text-muted">
-          © {new Date().getFullYear()} Purely GOLD Co. By invitation.
+          © {new Date().getFullYear()} PurelyGoldenLLC
         </p>
       </div>
     </footer>

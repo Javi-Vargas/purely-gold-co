@@ -14,7 +14,7 @@ const displaySerif = Cormorant_Garamond({
 });
 
 export const metadata: Metadata = {
-  title: "Purely GOLD Co. — Campaign Coordination & AI Tools",
+  title: "Golden Pages — Business Directory",
   description:
     "Plan, build, and execute marketing campaigns — with AI tools and a vetted directory of production professionals. By invitation.",
 };

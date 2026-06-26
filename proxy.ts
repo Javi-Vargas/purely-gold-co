@@ -10,7 +10,7 @@ import type { Role } from '@/types'
 
 // Paths anyone can reach without logging in.
 const PUBLIC_EXACT = new Set(['/'])
-const PUBLIC_PREFIXES = ['/about', '/pricing', '/login', '/signup', '/apply']
+const PUBLIC_PREFIXES = ['/about', '/pricing', '/get-listed', '/login', '/signup', '/apply']
 
 // Role -> the route prefixes that role is allowed to use (beyond the shared
 // /dashboard and /account, which any authenticated user may reach).

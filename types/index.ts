@@ -14,6 +14,7 @@ export type ProviderApplicationStatus =
   | 'auto_screened'
   | 'approved'
   | 'declined'
+export type GoldenPagesStatus = 'pending' | 'approved' | 'declined'
 export type OrderStatus =
   | 'pending'
   | 'accepted'
@@ -66,10 +67,11 @@ export interface ProviderProfile {
 
 export interface GoldenPagesProfile {
   id: string
-  user_id: string
+  user_id: string | null
   business_name: string | null
   service_type: ProviderServiceType | null
   contact_name: string | null
+  email: string | null
   phone: string | null
   address: string | null
   city: string | null
@@ -82,6 +84,11 @@ export interface GoldenPagesProfile {
   subscription_status: SubscriptionStatus
   paypal_customer_id: string | null
   is_visible: boolean
+  status: GoldenPagesStatus
+  admin_notes: string | null
+  decline_reason: string | null
+  reviewed_at: string | null
+  reviewed_by: string | null
   created_at: string
 }
 

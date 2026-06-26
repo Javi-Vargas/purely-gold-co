@@ -3,7 +3,7 @@ import { Card, CardTitle, CardDescription } from '@/components/ui/Card'
 import { Button } from '@/components/ui/Button'
 import { Check } from 'lucide-react'
 
-export const metadata = { title: 'Pricing — Purely GOLD Co.' }
+export const metadata = { title: 'Pricing — Golden Pages' }
 
 const tiers = [
   {

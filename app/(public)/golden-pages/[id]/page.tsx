@@ -17,6 +17,7 @@ export default async function GoldenPageListing({
     .select('*')
     .eq('id', id)
     .eq('is_visible', true)
+    .eq('status', 'approved')
     .maybeSingle()
 
   if (!listing) notFound()

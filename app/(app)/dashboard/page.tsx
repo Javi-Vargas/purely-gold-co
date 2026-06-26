@@ -36,7 +36,7 @@ export default async function DashboardPage() {
   return (
     <Shell title="Dashboard">
       <div className="max-w-3xl">
-        <h2 className="font-display text-3xl text-cream">Welcome to Purely GOLD.</h2>
+        <h2 className="font-display text-3xl text-cream">Welcome to Golden Pages.</h2>
         <p className="mt-2 text-cream-dim">{intro[role]}</p>
 
         <div className="mt-8 grid gap-4 sm:grid-cols-2">
