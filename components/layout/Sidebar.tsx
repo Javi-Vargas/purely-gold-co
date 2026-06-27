@@ -63,7 +63,7 @@ export function Sidebar({ role, email }: { role: Role; email?: string }) {
   async function signOut() {
     const supabase = createClient()
     await supabase.auth.signOut()
-    router.push('/login')
+    router.push('/admin')
     router.refresh()
   }
 

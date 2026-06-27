@@ -8,9 +8,11 @@ import type { Role } from '@/types'
 // Security note: RLS in the database is the real boundary (see migration). This
 // proxy is a UX layer that redirects users away from routes they can't use.
 
-// Paths anyone can reach without logging in.
+// Paths anyone can reach without logging in. /admin is included because it
+// self-gates: the admin layout renders the sign-in form when there is no session
+// (there is no separate /login page), and RLS is the real boundary for its data.
 const PUBLIC_EXACT = new Set(['/'])
-const PUBLIC_PREFIXES = ['/about', '/pricing', '/get-listed', '/login', '/signup', '/apply']
+const PUBLIC_PREFIXES = ['/about', '/pricing', '/get-listed', '/apply', '/admin']
 
 // Role -> the route prefixes that role is allowed to use (beyond the shared
 // /dashboard and /account, which any authenticated user may reach).
@@ -63,10 +65,11 @@ export async function proxy(request: NextRequest) {
 
   if (isPublic(path)) return response
 
-  // Everything past here requires a session.
+  // Everything past here requires a session. With no /login page, unauthenticated
+  // users are sent to /admin, which renders the sign-in form.
   if (!claims) {
     const url = request.nextUrl.clone()
-    url.pathname = '/login'
+    url.pathname = '/admin'
     return NextResponse.redirect(url)
   }
 
@@ -76,11 +79,8 @@ export async function proxy(request: NextRequest) {
     return NextResponse.redirect(url)
   }
 
-  // Admin area.
-  if (path === '/admin' || path.startsWith('/admin/')) {
-    return role === 'admin' ? response : redirectToDashboard()
-  }
-  // Role-specific areas.
+  // Role-specific areas. (/admin self-gates in its layout and is treated as public
+  // above, so it is intentionally not enforced here.)
   if (startsWithAny(path, CLIENT_PREFIXES)) {
     return role === 'client' ? response : redirectToDashboard()
   }

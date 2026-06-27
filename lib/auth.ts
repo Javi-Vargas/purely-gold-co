@@ -18,10 +18,11 @@ export async function getSessionUser(): Promise<SessionUser | null> {
   }
 }
 
-// Redirects to /login when there is no session.
+// Redirects to the admin sign-in (/admin) when there is no session. There is no
+// public /login page — /admin self-gates and renders the only sign-in form.
 export async function requireUser(): Promise<SessionUser> {
   const user = await getSessionUser()
-  if (!user) redirect('/login')
+  if (!user) redirect('/admin')
   return user
 }
 
