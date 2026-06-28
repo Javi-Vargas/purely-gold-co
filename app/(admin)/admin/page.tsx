@@ -3,11 +3,11 @@ import { Shell } from '@/components/layout/Shell'
 import { Card, CardTitle, CardDescription } from '@/components/ui/Card'
 
 const sections = [
-  { href: '/admin/applications', title: 'Applications', desc: 'Review the provider vetting queue.' },
-  { href: '/admin/golden-pages', title: 'Golden Pages', desc: 'Approve, hide, or edit public listings.' },
-  { href: '/admin/users', title: 'Users', desc: 'All users across roles.' },
-  { href: '/admin/orders', title: 'Orders', desc: 'All orders on the platform.' },
-  { href: '/admin/providers', title: 'Providers', desc: 'All approved providers.' },
+  {
+    href: '/admin/golden-pages',
+    title: 'Golden Pages',
+    desc: 'Review listing requests — approve, decline, or unpublish.',
+  },
 ]
 
 export default function AdminOverview() {

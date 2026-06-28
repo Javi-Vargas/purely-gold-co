@@ -44,7 +44,6 @@ export async function submitApplication(formData: FormData) {
       city: str(formData, 'location'),
       website_url: str(formData, 'website_url'),
       bio,
-      user_id: null,
       status: 'pending',
       is_visible: false,
     })

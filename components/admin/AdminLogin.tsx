@@ -1,7 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 import { Button } from '@/components/ui/Button'
 import { Card, CardTitle, CardDescription } from '@/components/ui/Card'
@@ -10,7 +9,6 @@ import { Input, Label } from '@/components/ui/Input'
 // The only sign-in surface in the app. Lives on /admin (no separate /login page).
 // Accounts are provisioned manually in the database — there is no sign-up.
 export function AdminLogin({ notAdminEmail }: { notAdminEmail?: string }) {
-  const router = useRouter()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState<string | null>(null)
@@ -19,7 +17,8 @@ export function AdminLogin({ notAdminEmail }: { notAdminEmail?: string }) {
   async function signOut() {
     const supabase = createClient()
     await supabase.auth.signOut()
-    router.refresh()
+    // Full reload so the server re-renders without the session.
+    window.location.assign('/admin')
   }
 
   async function handleSubmit(e: React.FormEvent) {
@@ -33,8 +32,10 @@ export function AdminLogin({ notAdminEmail }: { notAdminEmail?: string }) {
       setLoading(false)
       return
     }
-    // Re-render the server layout, which now sees the admin session.
-    router.refresh()
+    // Full navigation so the server re-renders with the freshly-set session
+    // cookie and lands on the queue. (router.refresh() in place is unreliable
+    // immediately after the auth cookie is written.)
+    window.location.assign('/admin/golden-pages')
   }
 
   return (

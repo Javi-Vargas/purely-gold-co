@@ -26,16 +26,11 @@ export async function requireUser(): Promise<SessionUser> {
   return user
 }
 
-// Redirects unauthorized users to their dashboard. Accepts a single role or list.
+// Requires an admin (the only role). Non-admins are sent to /admin, which renders
+// the sign-in / not-authorized view.
 export async function requireRole(role: Role | Role[]): Promise<SessionUser> {
   const user = await requireUser()
   const allowed = Array.isArray(role) ? role : [role]
-  if (!user.role || !allowed.includes(user.role)) redirect('/dashboard')
+  if (!user.role || !allowed.includes(user.role)) redirect('/admin')
   return user
-}
-
-// Where each role lands after login / when hitting an unauthorized route.
-export function dashboardPathForRole(role: Role | null): string {
-  if (role === 'admin') return '/admin'
-  return '/dashboard'
 }

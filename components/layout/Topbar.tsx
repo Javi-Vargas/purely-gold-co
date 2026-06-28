@@ -2,9 +2,6 @@ import { Badge } from '@/components/ui/Badge'
 import type { Role } from '@/types'
 
 const roleLabel: Record<Role, string> = {
-  client: 'Client',
-  provider: 'Service Provider',
-  golden_pages: 'Golden Pages',
   admin: 'Admin',
 }
 
