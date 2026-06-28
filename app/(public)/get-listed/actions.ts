@@ -41,7 +41,6 @@ export async function submitListing(formData: FormData) {
       city: str(formData, 'city'),
       state: str(formData, 'state'),
       bio: str(formData, 'bio'),
-      user_id: null,
       status: 'pending',
       is_visible: false,
     })

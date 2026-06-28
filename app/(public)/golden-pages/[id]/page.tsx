@@ -39,12 +39,10 @@ export default async function GoldenPageListing({
       {listing.bio && <p className="mt-6 text-lg text-cream-dim">{listing.bio}</p>}
 
       <Card className="mt-10 space-y-3">
-        {(listing.address || listing.city) && (
+        {(listing.city || listing.state) && (
           <div className="flex items-center gap-3 text-cream-dim">
             <MapPin size={18} className="text-gold" />
-            {[listing.address, listing.city, listing.state, listing.zip]
-              .filter(Boolean)
-              .join(', ')}
+            {[listing.city, listing.state].filter(Boolean).join(', ')}
           </div>
         )}
         {listing.phone && (

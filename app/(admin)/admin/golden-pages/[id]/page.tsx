@@ -71,9 +71,7 @@ export default async function AdminGoldenPageDetail({
           <Field label="Business hours" value={listing.business_hours} />
           <Field
             label="Location"
-            value={[listing.address, listing.city, listing.state, listing.zip]
-              .filter(Boolean)
-              .join(', ')}
+            value={[listing.city, listing.state].filter(Boolean).join(', ')}
           />
         </Card>
 
