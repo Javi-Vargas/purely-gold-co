@@ -9,7 +9,7 @@ import { createClient } from '@/lib/supabase/server'
 import { serviceTypeLabel } from '@/lib/utils'
 import type { GoldenPagesProfile, GoldenPagesStatus } from '@/types'
 import { ArrowLeft } from 'lucide-react'
-import { approveListing, declineListing } from '../actions'
+import { approveListing, declineListing, setVisibility, markPending } from '../actions'
 import { DECLINE_REASONS } from '../constants'
 
 const STATUS_TONE: Record<GoldenPagesStatus, 'gold' | 'green' | 'red'> = {
@@ -93,40 +93,72 @@ export default async function AdminGoldenPageDetail({
         <Card className="space-y-4">
           <p className="font-medium text-cream">Review</p>
           <div className="flex flex-wrap items-center gap-3">
-            <form action={approveListing}>
-              <input type="hidden" name="id" value={listing.id} />
-              <Button type="submit">Approve & publish</Button>
-            </form>
-
-            <details className="group">
-              <summary className="cursor-pointer list-none">
-                <span className="inline-flex items-center rounded-xl border border-line px-4 py-2.5 text-sm text-cream-dim transition-colors hover:text-cream">
-                  Decline…
-                </span>
-              </summary>
-              <form action={declineListing} className="mt-4 space-y-4">
+            {listing.status !== 'approved' ? (
+              <form action={approveListing}>
                 <input type="hidden" name="id" value={listing.id} />
-                <div>
-                  <Label htmlFor="reason">Reason (shown to the business)</Label>
-                  <Select id="reason" name="reason" defaultValue="">
-                    <option value="">No reason given</option>
-                    {DECLINE_REASONS.map((r) => (
-                      <option key={r} value={r}>
-                        {r}
-                      </option>
-                    ))}
-                  </Select>
-                </div>
-                <div>
-                  <Label htmlFor="admin_notes">Internal note (not shown to business)</Label>
-                  <Textarea id="admin_notes" name="admin_notes" />
-                </div>
+                <Button type="submit">Approve &amp; publish</Button>
+              </form>
+            ) : listing.is_visible ? (
+              <form action={setVisibility}>
+                <input type="hidden" name="id" value={listing.id} />
+                <input type="hidden" name="visible" value="false" />
                 <Button type="submit" variant="secondary">
-                  Confirm decline
+                  Unpublish
                 </Button>
               </form>
-            </details>
+            ) : (
+              <form action={setVisibility}>
+                <input type="hidden" name="id" value={listing.id} />
+                <input type="hidden" name="visible" value="true" />
+                <Button type="submit">Publish</Button>
+              </form>
+            )}
+
+            {listing.status === 'declined' ? (
+              <form action={markPending}>
+                <input type="hidden" name="id" value={listing.id} />
+                <Button type="submit" variant="secondary">
+                  Mark Pending
+                </Button>
+              </form>
+            ) : (
+              <details className="group">
+                <summary className="cursor-pointer list-none">
+                  <span className="inline-flex items-center rounded-xl border border-line px-4 py-2.5 text-sm text-cream-dim transition-colors hover:text-cream">
+                    Decline…
+                  </span>
+                </summary>
+                <form action={declineListing} className="mt-4 space-y-4">
+                  <input type="hidden" name="id" value={listing.id} />
+                  <div>
+                    <Label htmlFor="reason">Reason (shown to the business)</Label>
+                    <Select id="reason" name="reason" defaultValue="">
+                      <option value="">No reason given</option>
+                      {DECLINE_REASONS.map((r) => (
+                        <option key={r} value={r}>
+                          {r}
+                        </option>
+                      ))}
+                    </Select>
+                  </div>
+                  <div>
+                    <Label htmlFor="admin_notes">Internal note (not shown to business)</Label>
+                    <Textarea id="admin_notes" name="admin_notes" />
+                  </div>
+                  <Button type="submit" variant="secondary">
+                    Confirm decline
+                  </Button>
+                </form>
+              </details>
+            )}
           </div>
+          {listing.status === 'approved' && (
+            <p className="text-sm text-muted">
+              {listing.is_visible
+                ? 'Live in the public directory.'
+                : 'Approved but hidden from the public directory.'}
+            </p>
+          )}
         </Card>
       </div>
     </Shell>
