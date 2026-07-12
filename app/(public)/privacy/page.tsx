@@ -48,7 +48,7 @@ export default function PrivacyPage() {
             Submission of an application does not guarantee acceptance into our directory.
           </p>
           <p>
-            Purely Golden Co. reserves the right to approve, deny, suspend, or remove any
+            Purely Golden LLC reserves the right to approve, deny, suspend, or remove any
             listing at its sole discretion.
           </p>
         </section>
