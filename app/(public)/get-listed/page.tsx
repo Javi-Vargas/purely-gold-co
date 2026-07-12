@@ -15,9 +15,15 @@ export default async function GetListedPage({
   const errorMessage =
     error === 'missing'
       ? 'Please fill in business name, contact name, and email.'
-      : error === 'server'
-        ? 'Something went wrong submitting your request. Please try again.'
-        : null
+      : error === 'invalid'
+        ? 'Please double-check your entries — one of the fields looks invalid or too long.'
+        : error === 'duplicate'
+          ? 'It looks like this business has already been submitted. We’ll be in touch.'
+          : error === 'rate'
+            ? 'Too many submissions from your connection. Please wait a little while and try again.'
+            : error === 'server'
+              ? 'Something went wrong submitting your request. Please try again.'
+              : null
 
   return (
     <div className="mx-auto max-w-2xl px-6 py-20">

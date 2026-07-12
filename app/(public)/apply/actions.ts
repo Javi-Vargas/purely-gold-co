@@ -2,6 +2,7 @@
 
 import { redirect } from 'next/navigation'
 import { createAdminClient } from '@/lib/supabase/admin'
+import { guardSubmission } from '@/lib/submission-guard'
 import { sendAdminNewListingNotification, sendBusinessConfirmation } from '@/lib/email'
 
 function str(formData: FormData, key: string): string | null {
@@ -22,6 +23,10 @@ export async function submitApplication(formData: FormData) {
   const service_type = str(formData, 'service_type')
   if (!business_name || !email) redirect('/apply?error=missing')
 
+  // Rate limit, validate, and reject duplicates before touching the table.
+  const guard = await guardSubmission(formData)
+  if (!guard.ok) redirect(`/apply?error=${guard.error}`)
+
   // golden_pages_profiles has no portfolio/instagram/experience columns — fold the
   // provider-specific fields into the bio so the owner still sees them when reviewing.
   const extras = [
@@ -39,7 +44,7 @@ export async function submitApplication(formData: FormData) {
     .from('golden_pages_profiles')
     .insert({
       business_name,
-      email,
+      email: guard.email,
       service_type,
       city: str(formData, 'location'),
       website_url: str(formData, 'website_url'),

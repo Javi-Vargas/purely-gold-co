@@ -30,7 +30,7 @@ export default async function GoldenPagesDirectory() {
       </h1>
       <div className="mt-4 h-px w-10 bg-gold" />
       <p className="mt-4 max-w-xl text-cream-dim">
-        Production businesses listed on Golden Pages. Contact them directly — visit
+        Production businesses listed on Golden Pages. Contact them directly, visit
         their website, call, or stop by. No account required.
       </p>
 
