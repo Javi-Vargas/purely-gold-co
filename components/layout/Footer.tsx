@@ -19,6 +19,9 @@ export function Footer() {
           <Link href="/privacy" className="hover:text-cream">
             Privacy
           </Link>
+          <Link href="/terms" className="hover:text-cream">
+            Terms
+          </Link>
         </div>
         <p className="text-xs text-muted">
           © {new Date().getFullYear()} PurelyGoldenLLC
