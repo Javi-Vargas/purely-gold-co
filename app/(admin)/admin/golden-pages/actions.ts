@@ -71,3 +71,57 @@ export async function declineListing(formData: FormData) {
   revalidatePath('/golden-pages')
   redirect('/admin/golden-pages')
 }
+
+// Show/hide an already-approved listing in the public directory without changing
+// its approval status or sending any email. (Public visibility needs both
+// status = 'approved' AND is_visible = true.)
+export async function setVisibility(formData: FormData) {
+  await requireRole('admin')
+  const id = String(formData.get('id') ?? '')
+  if (!id) redirect('/admin/golden-pages')
+  const visible = formData.get('visible') === 'true'
+
+  const supabase = await createClient()
+  const { error } = await supabase
+    .from('golden_pages_profiles')
+    .update({ is_visible: visible })
+    .eq('id', id)
+
+  if (error) {
+    console.error('[admin] visibility update failed:', error)
+    redirect(`/admin/golden-pages/${id}?error=1`)
+  }
+
+  revalidatePath('/admin/golden-pages')
+  revalidatePath('/golden-pages')
+  redirect(`/admin/golden-pages/${id}`)
+}
+
+// Move a declined (or approved) listing back into the pending queue for another
+// look. Clears the prior decision; sends no email.
+export async function markPending(formData: FormData) {
+  await requireRole('admin')
+  const id = String(formData.get('id') ?? '')
+  if (!id) redirect('/admin/golden-pages')
+
+  const supabase = await createClient()
+  const { error } = await supabase
+    .from('golden_pages_profiles')
+    .update({
+      status: 'pending',
+      is_visible: false,
+      decline_reason: null,
+      reviewed_at: null,
+      reviewed_by: null,
+    })
+    .eq('id', id)
+
+  if (error) {
+    console.error('[admin] mark pending failed:', error)
+    redirect(`/admin/golden-pages/${id}?error=1`)
+  }
+
+  revalidatePath('/admin/golden-pages')
+  revalidatePath('/golden-pages')
+  redirect('/admin/golden-pages')
+}

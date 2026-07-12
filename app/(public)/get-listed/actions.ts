@@ -2,6 +2,7 @@
 
 import { redirect } from 'next/navigation'
 import { createAdminClient } from '@/lib/supabase/admin'
+import { guardSubmission } from '@/lib/submission-guard'
 import { sendAdminNewListingNotification, sendBusinessConfirmation } from '@/lib/email'
 
 function str(formData: FormData, key: string): string | null {
@@ -27,13 +28,17 @@ export async function submitListing(formData: FormData) {
     redirect('/get-listed?error=missing')
   }
 
+  // Rate limit, validate, and reject duplicates before touching the table.
+  const guard = await guardSubmission(formData)
+  if (!guard.ok) redirect(`/get-listed?error=${guard.error}`)
+
   const supabase = createAdminClient()
   const { data, error } = await supabase
     .from('golden_pages_profiles')
     .insert({
       business_name,
       contact_name,
-      email,
+      email: guard.email,
       service_type,
       phone: str(formData, 'phone'),
       website_url: str(formData, 'website_url'),
