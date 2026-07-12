@@ -2,7 +2,7 @@ import { headers } from 'next/headers'
 import { createHash } from 'crypto'
 import { createAdminClient } from '@/lib/supabase/admin'
 
-// Shared abuse guard for the public /get-listed and /apply submissions. Runs
+// Shared abuse guard for the public /get-listed submission. Runs
 // before the listing is inserted and enforces, in order:
 //   1. per-IP rate limiting (DB-backed, free — no Redis/CAPTCHA)
 //   2. input validation + size caps

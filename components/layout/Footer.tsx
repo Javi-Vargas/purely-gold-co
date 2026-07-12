@@ -16,6 +16,9 @@ export function Footer() {
           <Link href="/get-listed" className="hover:text-cream">
             Get Listed
           </Link>
+          <Link href="/privacy" className="hover:text-cream">
+            Privacy
+          </Link>
         </div>
         <p className="text-xs text-muted">
           © {new Date().getFullYear()} PurelyGoldenLLC
