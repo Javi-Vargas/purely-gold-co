@@ -24,7 +24,7 @@ export function Footer() {
           </Link>
         </div>
         <p className="text-xs text-muted">
-          © {new Date().getFullYear()} PurelyGoldenLLC
+          © {new Date().getFullYear()} Purely Golden LLC
         </p>
       </div>
     </footer>

@@ -8,7 +8,7 @@ export default function TermsPage() {
 
       <p className="mt-6 text-lg text-cream-dim">
         Welcome to Golden Pages (&ldquo;Platform&rdquo;), owned and operated by Purely
-        Golden Co.
+        Golden LLC.
       </p>
       <p className="mt-4 text-cream-dim">
         By accessing or using the Platform, you agree to these Terms of Service
@@ -25,7 +25,7 @@ export default function TermsPage() {
           </p>
           <p>
             The Platform is intended to facilitate professional discovery and connections.
-            Unless expressly stated, Purely Golden Co. is not a staffing agency, employer,
+            Unless expressly stated, Purely Golden LLC is not a staffing agency, employer,
             talent agency, or employment service.
           </p>
         </section>
@@ -64,7 +64,7 @@ export default function TermsPage() {
           <h2 className="font-display text-2xl text-cream">4. Vetted Professional Network</h2>
           <p>The Platform is a curated network.</p>
           <p>Submitting an application does not guarantee acceptance.</p>
-          <p>Purely Golden Co. reserves the right to:</p>
+          <p>Purely Golden LLC reserves the right to:</p>
           <ul className="list-disc space-y-1 pl-6">
             <li>approve or deny applications;</li>
             <li>request additional verification;</li>
@@ -105,7 +105,7 @@ export default function TermsPage() {
           <h2 className="font-display text-2xl text-cream">6. User Content</h2>
           <p>Users retain ownership of the content they upload.</p>
           <p>
-            By submitting content to the Platform, you grant Purely Golden Co. a
+            By submitting content to the Platform, you grant Purely Golden LLC a
             non-exclusive, worldwide, royalty-free license to display, reproduce, and
             distribute that content solely for operating, promoting, and improving the
             Platform.
@@ -116,7 +116,7 @@ export default function TermsPage() {
         <section className="space-y-3">
           <h2 className="font-display text-2xl text-cream">7. Business Relationships</h2>
           <p>
-            Purely Golden Co. is not a party to contracts entered into between businesses
+            Purely Golden LLC is not a party to contracts entered into between businesses
             and professionals.
           </p>
           <p>Users are solely responsible for:</p>
@@ -127,7 +127,7 @@ export default function TermsPage() {
             <li>obtaining insurance when appropriate;</li>
             <li>complying with applicable tax obligations.</li>
           </ul>
-          <p>Purely Golden Co. is not liable for disputes arising between users.</p>
+          <p>Purely Golden LLC is not liable for disputes arising between users.</p>
         </section>
 
         <section className="space-y-3">
@@ -139,14 +139,14 @@ export default function TermsPage() {
             <li>subscriptions renew only as disclosed;</li>
             <li>fees are non-refundable unless required by law or otherwise stated.</li>
           </ul>
-          <p>Purely Golden Co. reserves the right to modify pricing at any time.</p>
+          <p>Purely Golden LLC reserves the right to modify pricing at any time.</p>
         </section>
 
         <section className="space-y-3">
           <h2 className="font-display text-2xl text-cream">9. Intellectual Property</h2>
           <p>
             The Platform, including its design, branding, software, logos, graphics, and
-            original content, is the exclusive property of Purely Golden Co. and is
+            original content, is the exclusive property of Purely Golden LLC and is
             protected by applicable intellectual property laws.
           </p>
           <p>
@@ -173,7 +173,7 @@ export default function TermsPage() {
             The Platform is provided on an &ldquo;as is&rdquo; and &ldquo;as
             available&rdquo; basis.
           </p>
-          <p>Purely Golden Co. does not guarantee:</p>
+          <p>Purely Golden LLC does not guarantee:</p>
           <ul className="list-disc space-y-1 pl-6">
             <li>employment;</li>
             <li>project opportunities;</li>
@@ -195,20 +195,20 @@ export default function TermsPage() {
         <section className="space-y-3">
           <h2 className="font-display text-2xl text-cream">12. Limitation of Liability</h2>
           <p>
-            To the fullest extent permitted by law, Purely Golden Co. shall not be liable
+            To the fullest extent permitted by law, Purely Golden LLC shall not be liable
             for any indirect, incidental, consequential, special, or punitive damages
             arising out of or related to the use of the Platform.
           </p>
           <p>
             Our total liability shall not exceed the amount paid by the user to Purely
-            Golden Co. during the twelve (12) months preceding the claim.
+            Golden LLC during the twelve (12) months preceding the claim.
           </p>
         </section>
 
         <section className="space-y-3">
           <h2 className="font-display text-2xl text-cream">13. Indemnification</h2>
           <p>
-            Users agree to indemnify and hold harmless Purely Golden Co., its owners,
+            Users agree to indemnify and hold harmless Purely Golden LLC, its owners,
             employees, contractors, affiliates, and partners from any claims, losses,
             damages, liabilities, or expenses arising from:
           </p>
@@ -222,7 +222,7 @@ export default function TermsPage() {
 
         <section className="space-y-3">
           <h2 className="font-display text-2xl text-cream">14. Account Suspension</h2>
-          <p>Purely Golden Co. may suspend or terminate accounts that:</p>
+          <p>Purely Golden LLC may suspend or terminate accounts that:</p>
           <ul className="list-disc space-y-1 pl-6">
             <li>violate these Terms;</li>
             <li>submit false information;</li>
@@ -251,7 +251,7 @@ export default function TermsPage() {
 
         <section className="space-y-3">
           <h2 className="font-display text-2xl text-cream">17. Changes to These Terms</h2>
-          <p>Purely Golden Co. may revise these Terms from time to time.</p>
+          <p>Purely Golden LLC may revise these Terms from time to time.</p>
           <p>Updated versions will be posted on the Platform with a revised Effective Date.</p>
           <p>
             Continued use of the Platform after changes become effective constitutes
@@ -262,7 +262,7 @@ export default function TermsPage() {
         <section className="space-y-3">
           <h2 className="font-display text-2xl text-cream">18. Contact Information</h2>
           <p>For questions regarding these Terms, contact:</p>
-          <p>Purely Golden Co.</p>
+          <p>Purely Golden LLC</p>
           <a
             href="mailto:contact@purelygoldenco.com"
             className="inline-block text-gold hover:underline"
