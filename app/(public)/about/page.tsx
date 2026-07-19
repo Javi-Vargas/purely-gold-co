@@ -1,4 +1,4 @@
-export const metadata = { title: 'About — Golden Pages' }
+export const metadata = { title: 'About — Golden Network' }
 
 export default function AboutPage() {
   return (
@@ -7,11 +7,11 @@ export default function AboutPage() {
       <p className="mt-6 text-lg text-cream-dim">
         About
 
-Welcome to our Golden Creative Network, a curated professional directory built for brands, agencies, and creatives who need trusted marketing professionals in one place.
+Welcome to our Golden Network, a curated professional directory built for brands, agencies, and creatives who need trusted marketing professionals in one place.
 
 Finding the right people to execute a marketing campaign shouldn’t require hours of searching across multiple platforms. Our network connects businesses with experienced professionals across every stage of content production and campaign execution.
 
-Whether you’re producing a commercial, launching a product, creating social media content, planning a print campaign, or building a national marketing initiative, Golden Creative Network helps you find qualified professionals to bring your vision to life.
+Whether you’re producing a commercial, launching a product, creating social media content, planning a print campaign, or building a national marketing initiative, Golden Network helps you find qualified professionals to bring your vision to life.
 
 <br /><br />
 

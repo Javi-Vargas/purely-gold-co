@@ -48,7 +48,7 @@ export default function LandingPage() {
         <div className="mx-auto max-w-4xl px-6 py-28 text-center">
           <motion.div initial="hidden" animate="show" variants={fadeUp} custom={0}>
             <span className="inline-flex items-center gap-2 rounded-full border border-gold/40 bg-gold/10 px-4 py-1.5 text-xs uppercase tracking-[0.2em] text-gold-soft">
-              Production business directory
+              VETTED MARKETING • MEDIA • PRODUCTION NETWORK
             </span>
           </motion.div>
           <motion.h1
@@ -58,7 +58,7 @@ export default function LandingPage() {
             custom={1}
             className="mt-8 font-display text-6xl font-medium leading-[1.05] text-cream md:text-7xl"
           >
-            Find production businesses.
+            Build your next campaign with the Golden Network.
             <br />
             <span className="text-gold">Or get listed.</span>
           </motion.h1>
@@ -69,8 +69,9 @@ export default function LandingPage() {
             custom={2}
             className="mx-auto mt-6 max-w-2xl text-lg text-cream-dim"
           >
-            Golden Pages is a curated directory of production businesses. Browse listings
-            and reach out directly — no account required.
+            Golden Network connects brands, agencies, and businesses with vetted
+            marketing, media, and production professionals—making it easier to
+            discover trusted partners for every campaign.
           </motion.p>
           <motion.div
             initial="hidden"
@@ -81,7 +82,7 @@ export default function LandingPage() {
           >
             <Link href="/golden-pages">
               <Button size="lg">
-                View the Directory <ArrowRight size={18} />
+                Explore the Network <ArrowRight size={18} />
               </Button>
             </Link>
             <Link href="/get-listed">
