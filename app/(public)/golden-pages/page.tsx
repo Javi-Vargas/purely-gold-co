@@ -24,14 +24,15 @@ export default async function GoldenPagesDirectory() {
   return (
     <div className="mx-auto max-w-5xl px-6 py-20">
       {/* Header */}
-      <p className="text-xs uppercase tracking-[0.24em] text-gold-dim">Golden Pages</p>
+      <p className="text-xs uppercase tracking-[0.24em] text-gold-dim">Golden Network</p>
       <h1 className="mt-3 font-display text-5xl font-medium text-cream">
         Business Directory
       </h1>
       <div className="mt-4 h-px w-10 bg-gold" />
       <p className="mt-4 max-w-xl text-cream-dim">
-        Production businesses listed on Golden Pages. Contact them directly, visit
-        their website, call, or stop by. No account required.
+        Golden Network connects brands, agencies, and businesses with vetted
+marketing, media, and production professionals---making it easier to
+discover trusted partners for every campaign.
       </p>
 
       {/* Count, filters, and listings (client-side filtering) */}

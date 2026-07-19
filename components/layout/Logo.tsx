@@ -11,7 +11,7 @@ export function Logo({ href = '/', className }: { href?: string; className?: str
         Golden
       </span>
       <span className="font-display text-2xl font-semibold tracking-tight text-gold">
-        Pages
+        Network
       </span>
     </Link>
   )
