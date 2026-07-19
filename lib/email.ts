@@ -40,13 +40,19 @@ type Listing = Pick<
   | 'website_url'
 >
 
-async function send(opts: { to: string; subject: string; html: string }) {
+// The FROM address is send-only (no mailbox), so every email carries a Reply-To
+// pointing at ADMIN_EMAIL — otherwise a recipient hitting Reply just bounces.
+async function send(opts: { to: string; subject: string; html: string; bcc?: string }) {
   if (!resend) {
     console.warn(`[email] RESEND_API_KEY not set — skipping "${opts.subject}" to ${opts.to}`)
     return
   }
   try {
-    const { error } = await resend.emails.send({ from: FROM, ...opts })
+    const { error } = await resend.emails.send({
+      from: FROM,
+      ...(ADMIN_EMAIL ? { replyTo: ADMIN_EMAIL } : {}),
+      ...opts,
+    })
     if (error) console.error('[email] Resend error:', error)
   } catch (err) {
     console.error('[email] send failed:', err)
@@ -118,6 +124,8 @@ export async function sendDeclineEmail(listing: Listing, reason?: string | null)
   if (!listing.email) return
   await send({
     to: listing.email,
+    // Copy the owner inbox so declines leave a record of what was sent.
+    ...(ADMIN_EMAIL ? { bcc: ADMIN_EMAIL } : {}),
     subject: 'Update on your Golden Pages application — Purely Golden',
     html: wrap('Application update', `
       <p>Thank you for your interest in the Golden Pages directory.</p>
