@@ -133,12 +133,19 @@ The project currently has **no test runner** (no `test` script, no vitest/jest, 
 existing test files). `formatBusinessHours` is a pure function with real edge cases
 (12am/12pm, Sun-first ordering, non-contiguous days, incomplete-input → null).
 
-**Recommendation:** add a minimal **vitest** dev setup and unit-test the formatter
-only — it's the piece most worth locking down and needs no DOM. If the user prefers
-to keep the repo test-free to match current conventions, we verify manually via the
-running local dev server instead. **To be confirmed at spec review.**
+**Decision (confirmed at spec review):** add a minimal **vitest** dev setup and
+unit-test the formatter. Scope of the test setup:
 
-Manual verification (either way): run `npm run dev` (local Supabase), submit the
+- Add `vitest` as a devDependency and a `"test": "vitest run"` (plus optionally
+  `"test:watch": "vitest"`) script to `package.json`.
+- Minimal config (`vitest.config.ts`) only if needed for path aliases (`@/`); the
+  formatter has no DOM/React dependency so no jsdom is required.
+- Test file `lib/business-hours.test.ts` covering: single day; multiple/non-contiguous
+  days; Sun-first ordering regardless of input order; 12am and 12pm; overnight range
+  (`9pm–2am`); and the incomplete-input paths (no days, missing start, missing end) →
+  `null`.
+
+Manual verification (in addition): run `npm run dev` (local Supabase), submit the
 `/get-listed` form with several day/time combinations, and confirm the stored string
 in the local DB matches the expected format and that the required-field validation
 fires when days or times are missing.
