@@ -1,6 +1,7 @@
 import { Card } from '@/components/ui/Card'
 import { Button } from '@/components/ui/Button'
 import { Input, Label, Textarea, Select } from '@/components/ui/Input'
+import { BusinessHoursPicker } from '@/components/get-listed/BusinessHoursPicker'
 import { SERVICE_TYPE_LABELS } from '@/lib/utils'
 import { submitListing } from './actions'
 
@@ -14,7 +15,7 @@ export default async function GetListedPage({
   const { error } = await searchParams
   const errorMessage =
     error === 'missing'
-      ? 'Please fill in business name, contact name, and email.'
+      ? 'Please fill in business name, contact name, email, and business hours.'
       : error === 'invalid'
         ? 'Please double-check your entries — one of the fields looks invalid or too long.'
         : error === 'duplicate'
@@ -102,10 +103,7 @@ export default async function GetListedPage({
             <Label htmlFor="website_url">Website</Label>
             <Input id="website_url" name="website_url" type="url" placeholder="https://" />
           </div>
-          <div>
-            <Label htmlFor="business_hours">Business hours</Label>
-            <Input id="business_hours" name="business_hours" placeholder="Mon–Fri 9am–6pm" />
-          </div>
+          <BusinessHoursPicker />
           <div className="grid gap-4 sm:grid-cols-2">
             <div>
               <Label htmlFor="city">City</Label>

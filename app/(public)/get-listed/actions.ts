@@ -4,11 +4,24 @@ import { redirect } from 'next/navigation'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { guardSubmission } from '@/lib/submission-guard'
 import { sendAdminNewListingNotification, sendBusinessConfirmation } from '@/lib/email'
+import { formatBusinessHours, type AmPm } from '@/lib/business-hours'
 
 function str(formData: FormData, key: string): string | null {
   const v = formData.get(key)
   const s = typeof v === 'string' ? v.trim() : ''
   return s === '' ? null : s
+}
+
+function hourOrNull(formData: FormData, key: string): number | null {
+  const v = formData.get(key)
+  if (typeof v !== 'string' || v.trim() === '') return null
+  const n = Number(v)
+  return Number.isInteger(n) ? n : null
+}
+
+function ampmOrNull(formData: FormData, key: string): AmPm | null {
+  const v = formData.get(key)
+  return v === 'AM' || v === 'PM' ? v : null
 }
 
 // Public "Get Listed" submission. No login: anonymous visitors have no INSERT
@@ -22,9 +35,16 @@ export async function submitListing(formData: FormData) {
   const contact_name = str(formData, 'contact_name')
   const email = str(formData, 'email')
   const service_type = str(formData, 'service_type')
+  const business_hours = formatBusinessHours({
+    days: formData.getAll('day').map((v) => Number(v)),
+    startHour: hourOrNull(formData, 'start_hour'),
+    startAmPm: ampmOrNull(formData, 'start_ampm'),
+    endHour: hourOrNull(formData, 'end_hour'),
+    endAmPm: ampmOrNull(formData, 'end_ampm'),
+  })
 
   // Minimal server-side validation (the form also marks these required).
-  if (!business_name || !contact_name || !email) {
+  if (!business_name || !contact_name || !email || !business_hours) {
     redirect('/get-listed?error=missing')
   }
 
@@ -42,7 +62,7 @@ export async function submitListing(formData: FormData) {
       service_type,
       phone: str(formData, 'phone'),
       website_url: str(formData, 'website_url'),
-      business_hours: str(formData, 'business_hours'),
+      business_hours,
       city: str(formData, 'city'),
       state: str(formData, 'state'),
       bio: str(formData, 'bio'),
