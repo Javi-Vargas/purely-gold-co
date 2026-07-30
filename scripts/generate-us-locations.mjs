@@ -33,7 +33,7 @@ function stripSuffix(name) {
   let out = name.trim()
   out = out.replace(/\s*\([^)]*\)\s*$/, '').trim() // drop trailing "(balance)" etc.
   for (const suffix of TYPE_SUFFIXES) {
-    const re = new RegExp(`\\s+${suffix}$`, 'i')
+    const re = new RegExp(`\\s+${suffix}$`)
     if (re.test(out)) {
       out = out.replace(re, '').trim()
       break

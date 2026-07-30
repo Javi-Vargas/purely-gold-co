@@ -45,4 +45,9 @@ describe('CITIES_BY_STATE', () => {
     expect(CITIES_BY_STATE.CA).toContain('Los Angeles')
     expect(CITIES_BY_STATE.CA.some((c) => / city$/i.test(c))).toBe(false)
   })
+
+  it('preserves proper-name "City"/"Town" endings (Carson City)', () => {
+    expect(CITIES_BY_STATE.NV).toContain('Carson City')
+    expect(CITIES_BY_STATE.NV).not.toContain('Carson')
+  })
 })

@@ -1080,7 +1080,7 @@ export const CITIES_BY_STATE: Record<string, string[]> = {
     "Boulder City",
     "Caliente",
     "Carlin",
-    "Carson",
+    "Carson City",
     "Elko",
     "Ely",
     "Fallon",
