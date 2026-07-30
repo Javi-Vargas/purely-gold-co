@@ -27,7 +27,6 @@ const MAX_LEN: Record<string, number> = {
   website_url: 300,
   portfolio_url: 300,
   instagram_url: 200,
-  business_hours: 120,
   city: 80,
   state: 80,
   location: 120,
