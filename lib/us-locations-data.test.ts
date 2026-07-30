@@ -50,4 +50,39 @@ describe('CITIES_BY_STATE', () => {
     expect(CITIES_BY_STATE.NV).toContain('Carson City')
     expect(CITIES_BY_STATE.NV).not.toContain('Carson')
   })
+
+  it('cleans consolidated / borough city names', () => {
+    expect(CITIES_BY_STATE.AK).toContain('Juneau')
+    expect(CITIES_BY_STATE.AK).toContain('Sitka')
+    expect(CITIES_BY_STATE.AK).toContain('Wrangell')
+    expect(CITIES_BY_STATE.GA).toContain('Athens')
+    expect(CITIES_BY_STATE.GA).toContain('Augusta')
+    expect(CITIES_BY_STATE.KY).toContain('Lexington')
+    expect(CITIES_BY_STATE.KY).toContain('Louisville')
+    expect(CITIES_BY_STATE.TN).toContain('Nashville')
+    expect(CITIES_BY_STATE.HI).toContain('Honolulu')
+  })
+
+  it('has no administrative-descriptor or fragment leftovers', () => {
+    for (const list of Object.values(CITIES_BY_STATE)) {
+      for (const c of list) {
+        expect(c).not.toMatch(/ (borough|government|county|corporation|CDP)$/i)
+        expect(c).not.toMatch(/ and$/)
+      }
+    }
+  })
+
+  it('has no mojibake or control characters', () => {
+    const badChars = /[�\x00-\x1F\x7F]/
+    for (const list of Object.values(CITIES_BY_STATE)) {
+      for (const c of list) {
+        expect(c).not.toMatch(badChars)
+      }
+    }
+  })
+
+  it('preserves accented city names', () => {
+    expect(CITIES_BY_STATE.CO).toContain('Cañon City')
+    expect(CITIES_BY_STATE.NM).toContain('Española')
+  })
 })

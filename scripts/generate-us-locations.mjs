@@ -29,9 +29,34 @@ const TYPE_SUFFIXES = [
   'city', 'town', 'village', 'borough', 'municipality', 'township', 'CDP',
 ]
 
-function stripSuffix(name) {
-  let out = name.trim()
-  out = out.replace(/\s*\([^)]*\)\s*$/, '').trim() // drop trailing "(balance)" etc.
+// Explicit overrides for consolidated city-county / borough governments whose
+// Census NAME retains administrative descriptors that the generic per-word
+// suffix stripper can't safely remove (multi-word descriptors, or "city and
+// borough" which would otherwise leave a dangling "and"). Keyed on the raw
+// NAME after windows-1252 decode + control-char strip + paren-strip + trim —
+// verified against the raw CSV rows for each of these places.
+const NAME_OVERRIDES = {
+  'Juneau city and borough': 'Juneau',
+  'Sitka city and borough': 'Sitka',
+  'Wrangell city and borough': 'Wrangell',
+  'Athens-Clarke County unified government': 'Athens',
+  'Augusta-Richmond County consolidated government': 'Augusta',
+  'Lexington-Fayette urban county': 'Lexington',
+  'Louisville/Jefferson County metro government': 'Louisville',
+  'Nashville-Davidson metropolitan government': 'Nashville',
+  'Ranson corporation': 'Ranson',
+  'Urban Honolulu CDP': 'Honolulu',
+  // Found during verification of the above (same class of defect — a
+  // consolidated city-county name, or a multi-word type suffix where the
+  // generic single-word stripper leaves a dangling fragment):
+  'Macon-Bibb County': 'Macon', // GA consolidated city-county
+  'Anaconda-Deer Lodge County': 'Anaconda', // MT consolidated city-county
+  'Kearns metro township': 'Kearns', // UT — "township" strip alone leaves "Kearns metro"
+  'Magna metro township': 'Magna', // UT — "township" strip alone leaves "Magna metro"
+}
+
+function stripTypeSuffix(name) {
+  let out = name
   for (const suffix of TYPE_SUFFIXES) {
     const re = new RegExp(`\\s+${suffix}$`)
     if (re.test(out)) {
@@ -40,6 +65,16 @@ function stripSuffix(name) {
     }
   }
   return out
+}
+
+function stripSuffix(name) {
+  // Drop control characters (C0 range + DEL) left over from decoding —
+  // these show up as mojibake artifacts in a handful of Census rows
+  // (e.g. "Utqiag\x1Avik", Alaska).
+  let out = name.replace(/[\x00-\x1F\x7F]/g, '')
+  out = out.trim()
+  out = out.replace(/\s*\([^)]*\)\s*$/, '').trim() // drop trailing "(balance)" etc.
+  return NAME_OVERRIDES[out] ?? stripTypeSuffix(out)
 }
 
 // Minimal CSV line parser handling quoted fields.
@@ -65,7 +100,10 @@ function parseLine(line) {
 
 const res = await fetch(SOURCE_URL)
 if (!res.ok) throw new Error(`Census fetch failed: HTTP ${res.status} for ${SOURCE_URL}`)
-const text = await res.text()
+// Census publishes this file as windows-1252, not UTF-8 — decoding as UTF-8
+// mangles non-ASCII names (e.g. "Cañon City" -> "Ca�on City").
+const buf = await res.arrayBuffer()
+const text = new TextDecoder('windows-1252').decode(buf)
 const lines = text.split(/\r?\n/).filter(Boolean)
 const header = parseLine(lines[0])
 const idx = (name) => {
