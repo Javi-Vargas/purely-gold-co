@@ -2,6 +2,7 @@ import { Card } from '@/components/ui/Card'
 import { Button } from '@/components/ui/Button'
 import { Input, Label, Textarea, Select } from '@/components/ui/Input'
 import { BusinessHoursPicker } from '@/components/get-listed/BusinessHoursPicker'
+import { LocationFields } from '@/components/get-listed/LocationFields'
 import { SERVICE_TYPE_LABELS } from '@/lib/utils'
 import { submitListing } from './actions'
 
@@ -104,16 +105,7 @@ export default async function GetListedPage({
             <Input id="website_url" name="website_url" type="url" placeholder="https://" />
           </div>
           <BusinessHoursPicker />
-          <div className="grid gap-4 sm:grid-cols-2">
-            <div>
-              <Label htmlFor="city">City</Label>
-              <Input id="city" name="city" />
-            </div>
-            <div>
-              <Label htmlFor="state">State</Label>
-              <Input id="state" name="state" />
-            </div>
-          </div>
+          <LocationFields />
         </Card>
 
         <Button type="submit">Submit request</Button>

@@ -1,6 +1,7 @@
 import { headers } from 'next/headers'
 import { createHash } from 'crypto'
 import { createAdminClient } from '@/lib/supabase/admin'
+import { isValidStateCode } from '@/lib/us-locations'
 
 // Shared abuse guard for the public /get-listed submission. Runs
 // before the listing is inserted and enforces, in order:
@@ -86,6 +87,9 @@ export async function guardSubmission(formData: FormData): Promise<GuardResult> 
   const businessName = val(formData, 'business_name')
   if (!email || !EMAIL_RE.test(email)) return { ok: false, error: 'invalid' }
   if (!businessName) return { ok: false, error: 'invalid' }
+
+  const state = val(formData, 'state')
+  if (!state || !isValidStateCode(state)) return { ok: false, error: 'invalid' }
 
   const phoneRaw = val(formData, 'phone')
   if (phoneRaw && !PHONE_RE.test(phoneRaw)) return { ok: false, error: 'invalid' }
