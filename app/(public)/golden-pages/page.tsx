@@ -31,7 +31,7 @@ export default async function GoldenPagesDirectory() {
       <div className="mt-4 h-px w-10 bg-gold" />
       <p className="mt-4 max-w-xl text-cream-dim">
         Golden Network connects brands, agencies, and businesses with vetted
-marketing, media, and production professionals---making it easier to
+marketing, media, and production professionals. Making it easier to
 discover trusted partners for every campaign.
       </p>
 

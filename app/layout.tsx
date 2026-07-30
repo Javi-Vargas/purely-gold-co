@@ -16,7 +16,7 @@ const displaySerif = Cormorant_Garamond({
 export const metadata: Metadata = {
   title: "Golden Pages — Business Directory",
   description:
-    "Plan, build, and execute marketing campaigns — with AI tools and a vetted directory of production professionals. By invitation.",
+    "Plan, build, and execute marketing campaigns with AI tools and a vetted directory of production professionals. By invitation.",
 };
 
 export default function RootLayout({

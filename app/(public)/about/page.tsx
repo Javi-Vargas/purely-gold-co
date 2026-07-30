@@ -59,7 +59,7 @@ Every professional in our network is reviewed before being added, helping busine
 
 Our goal is simple:
 
-Connect brands with the right people to build exceptional marketing campaigns—faster, smarter, and with confidence.
+Connect brands with the right people to build exceptional marketing campaigns faster, smarter, and with confidence.
       </p>
 
       <div className="mt-12 border-t border-line/60 pt-8">

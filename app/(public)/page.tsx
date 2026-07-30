@@ -19,17 +19,17 @@ const steps = [
   {
     icon: Search,
     title: 'Browse the directory',
-    desc: 'Explore vetted production businesses by service type — photographers, videographers, agencies, and more.',
+    desc: 'Explore vetted production businesses by service type: photographers, videographers, agencies, and more.',
   },
   {
     icon: PhoneCall,
     title: 'Connect directly',
-    desc: 'Call, visit a website, or stop by. You reach businesses directly — no account, no middleman.',
+    desc: 'Call, visit a website, or stop by. You reach businesses directly: no account, no middleman.',
   },
   {
     icon: Store,
     title: 'Get listed',
-    desc: 'Run a production business? Submit a request — once approved, your listing appears in the directory.',
+    desc: 'Run a production business? Submit a request: once approved, your listing appears in the directory.',
   },
 ]
 
@@ -70,7 +70,7 @@ export default function LandingPage() {
             className="mx-auto mt-6 max-w-2xl text-lg text-cream-dim"
           >
             Golden Network connects brands, agencies, and businesses with vetted
-            marketing, media, and production professionals—making it easier to
+            marketing, media, and production professionals, making it easier to
             discover trusted partners for every campaign.
           </motion.p>
           <motion.div
