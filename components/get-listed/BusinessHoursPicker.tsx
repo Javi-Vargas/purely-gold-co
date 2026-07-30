@@ -5,13 +5,13 @@ import { Label, Select } from '@/components/ui/Input'
 import { cn } from '@/lib/utils'
 
 const DAYS = [
-  { value: 0, label: 'Sun' },
-  { value: 1, label: 'Mon' },
-  { value: 2, label: 'Tue' },
-  { value: 3, label: 'Wed' },
-  { value: 4, label: 'Thu' },
-  { value: 5, label: 'Fri' },
-  { value: 6, label: 'Sat' },
+  { value: 0, label: 'Sun', name: 'Sunday' },
+  { value: 1, label: 'Mon', name: 'Monday' },
+  { value: 2, label: 'Tue', name: 'Tuesday' },
+  { value: 3, label: 'Wed', name: 'Wednesday' },
+  { value: 4, label: 'Thu', name: 'Thursday' },
+  { value: 5, label: 'Fri', name: 'Friday' },
+  { value: 6, label: 'Sat', name: 'Saturday' },
 ]
 
 const HOURS = Array.from({ length: 12 }, (_, i) => i + 1)
@@ -29,7 +29,7 @@ export function BusinessHoursPicker() {
     <div className="space-y-4">
       <div>
         <Label>Business hours</Label>
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-2" role="group" aria-label="Days open">
           {DAYS.map((day) => {
             const active = selectedDays.includes(day.value)
             return (
@@ -37,6 +37,7 @@ export function BusinessHoursPicker() {
                 key={day.value}
                 type="button"
                 onClick={() => toggleDay(day.value)}
+                aria-label={day.name}
                 aria-pressed={active}
                 className={cn(
                   'flex h-11 w-11 items-center justify-center rounded-full border text-xs font-medium transition-colors',
