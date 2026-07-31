@@ -38,6 +38,10 @@ type Listing = Pick<
   | 'state'
   | 'email'
   | 'website_url'
+  | 'instagram_url'
+  | 'tiktok_url'
+  | 'youtube_url'
+  | 'facebook_url'
 >
 
 // The FROM address is send-only (no mailbox), so every email carries a Reply-To
@@ -85,6 +89,10 @@ export async function sendAdminNewListingNotification(listing: Listing) {
         <li><strong>Location:</strong> ${esc(location)}</li>
         <li><strong>Email:</strong> ${esc(listing.email)}</li>
         <li><strong>Website:</strong> ${esc(listing.website_url)}</li>
+        ${listing.instagram_url ? `<li><strong>Instagram:</strong> ${esc(listing.instagram_url)}</li>` : ''}
+        ${listing.tiktok_url ? `<li><strong>TikTok:</strong> ${esc(listing.tiktok_url)}</li>` : ''}
+        ${listing.youtube_url ? `<li><strong>YouTube:</strong> ${esc(listing.youtube_url)}</li>` : ''}
+        ${listing.facebook_url ? `<li><strong>Facebook:</strong> ${esc(listing.facebook_url)}</li>` : ''}
       </ul>
       <p><a href="${APP_URL}/admin/golden-pages/${listing.id}">Review this submission →</a></p>
     `),
