@@ -78,6 +78,10 @@ export interface GoldenPagesProfile {
   city: string | null
   state: string | null
   website_url: string | null
+  instagram_url: string | null
+  tiktok_url: string | null
+  youtube_url: string | null
+  facebook_url: string | null
   business_hours: string | null
   bio: string | null
   is_visible: boolean
