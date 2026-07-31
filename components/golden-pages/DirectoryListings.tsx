@@ -9,6 +9,8 @@ import { Select, Input } from '@/components/ui/Input'
 import { serviceTypeLabel, SERVICE_TYPE_LABELS } from '@/lib/utils'
 import { Globe, Phone, Clock, MapPin, ArrowRight, Search, ChevronDown } from 'lucide-react'
 import type { GoldenPagesProfile, ProviderServiceType } from '@/types'
+import { SOCIAL_PLATFORMS } from '@/lib/social-links'
+import { SocialIcon } from '@/components/social/SocialIcon'
 
 export type DirectoryListing = Pick<
   GoldenPagesProfile,
@@ -21,6 +23,10 @@ export type DirectoryListing = Pick<
   | 'phone'
   | 'website_url'
   | 'business_hours'
+  | 'instagram_url'
+  | 'tiktok_url'
+  | 'youtube_url'
+  | 'facebook_url'
 >
 
 // Enum order, used to keep the dropdown stable regardless of listing order.
@@ -160,6 +166,18 @@ export function DirectoryListings({ listings }: { listings: DirectoryListing[] }
                       {l.business_hours}
                     </span>
                   )}
+                  {SOCIAL_PLATFORMS.filter((p) => l[p.key]).map((p) => (
+                    <a
+                      key={p.key}
+                      href={l[p.key] as string}
+                      target="_blank"
+                      rel="noreferrer"
+                      aria-label={p.label}
+                      className="flex items-center gap-2 hover:text-gold"
+                    >
+                      <SocialIcon platform={p.key} size={14} />
+                    </a>
+                  ))}
                 </div>
               </div>
 

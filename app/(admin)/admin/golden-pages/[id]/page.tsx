@@ -68,6 +68,10 @@ export default async function AdminGoldenPageDetail({
           <Field label="Email" value={listing.email} />
           <Field label="Phone" value={listing.phone} />
           <Field label="Website" value={listing.website_url} />
+          <Field label="Instagram" value={listing.instagram_url} />
+          <Field label="TikTok" value={listing.tiktok_url} />
+          <Field label="YouTube" value={listing.youtube_url} />
+          <Field label="Facebook" value={listing.facebook_url} />
           <Field label="Business hours" value={listing.business_hours} />
           <Field
             label="Location"
