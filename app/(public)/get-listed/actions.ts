@@ -44,7 +44,7 @@ export async function submitListing(formData: FormData) {
   })
 
   // Minimal server-side validation (the form also marks these required).
-  if (!business_name || !contact_name || !email || !business_hours) {
+  if (!business_name || !contact_name || !email || !business_hours || !str(formData, 'website_url')) {
     redirect('/get-listed?error=missing')
   }
 
@@ -66,10 +66,14 @@ export async function submitListing(formData: FormData) {
       city: str(formData, 'city'),
       state: str(formData, 'state'),
       bio: str(formData, 'bio'),
+      instagram_url: str(formData, 'instagram_url'),
+      tiktok_url: str(formData, 'tiktok_url'),
+      youtube_url: str(formData, 'youtube_url'),
+      facebook_url: str(formData, 'facebook_url'),
       status: 'pending',
       is_visible: false,
     })
-    .select('id, business_name, service_type, city, state, email, website_url')
+    .select('id, business_name, service_type, city, state, email, website_url, instagram_url, tiktok_url, youtube_url, facebook_url')
     .single()
 
   if (error || !data) {

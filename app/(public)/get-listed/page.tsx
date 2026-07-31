@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/Button'
 import { Input, Label, Textarea, Select } from '@/components/ui/Input'
 import { BusinessHoursPicker } from '@/components/get-listed/BusinessHoursPicker'
 import { LocationFields } from '@/components/get-listed/LocationFields'
+import { SOCIAL_PLATFORMS } from '@/lib/social-links'
 import { SERVICE_TYPE_LABELS } from '@/lib/utils'
 import { submitListing } from './actions'
 
@@ -16,7 +17,7 @@ export default async function GetListedPage({
   const { error } = await searchParams
   const errorMessage =
     error === 'missing'
-      ? 'Please fill in business name, contact name, email, and business hours.'
+      ? 'Please fill in business name, contact name, email, website, and business hours.'
       : error === 'invalid'
         ? 'Please double-check your entries — one of the fields looks invalid or too long.'
         : error === 'duplicate'
@@ -102,7 +103,15 @@ export default async function GetListedPage({
           </div>
           <div>
             <Label htmlFor="website_url">Website</Label>
-            <Input id="website_url" name="website_url" type="url" placeholder="https://" />
+            <Input id="website_url" name="website_url" type="url" placeholder="https://" required />
+          </div>
+          <div className="grid gap-4 sm:grid-cols-2">
+            {SOCIAL_PLATFORMS.map((p) => (
+              <div key={p.key}>
+                <Label htmlFor={p.key}>{p.label}</Label>
+                <Input id={p.key} name={p.key} type="url" placeholder={p.placeholder} />
+              </div>
+            ))}
           </div>
           <BusinessHoursPicker />
           <LocationFields />
