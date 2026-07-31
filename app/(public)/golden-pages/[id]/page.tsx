@@ -4,6 +4,8 @@ import { createClient } from '@/lib/supabase/server'
 import { Card } from '@/components/ui/Card'
 import { serviceTypeLabel } from '@/lib/utils'
 import { Globe, Phone, MapPin, Clock, ArrowLeft } from 'lucide-react'
+import { SOCIAL_PLATFORMS } from '@/lib/social-links'
+import { SocialIcon } from '@/components/social/SocialIcon'
 
 export default async function GoldenPageListing({
   params,
@@ -68,6 +70,22 @@ export default async function GoldenPageListing({
           <div className="flex items-center gap-3 text-cream-dim">
             <Clock size={18} className="text-gold" />
             {listing.business_hours}
+          </div>
+        )}
+        {SOCIAL_PLATFORMS.some((p) => listing[p.key]) && (
+          <div className="flex items-center gap-4 pt-1">
+            {SOCIAL_PLATFORMS.filter((p) => listing[p.key]).map((p) => (
+              <a
+                key={p.key}
+                href={listing[p.key] as string}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={p.label}
+                className="text-gold hover:text-cream"
+              >
+                <SocialIcon platform={p.key} size={20} />
+              </a>
+            ))}
           </div>
         )}
       </Card>
