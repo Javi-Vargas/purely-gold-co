@@ -13,7 +13,7 @@ export default async function GoldenPagesDirectory() {
   const { data } = await supabase
     .from('golden_pages_profiles')
     .select(
-      'id, business_name, service_type, city, state, bio, phone, website_url, business_hours',
+      'id, business_name, service_type, city, state, bio, phone, website_url, business_hours, instagram_url, tiktok_url, youtube_url, facebook_url',
     )
     .eq('is_visible', true)
     .eq('status', 'approved')

@@ -6,7 +6,7 @@ import { createClient } from '@/lib/supabase/server'
 import { requireRole } from '@/lib/auth'
 import { sendApprovalEmail, sendDeclineEmail } from '@/lib/email'
 
-const REVIEW_SELECT = 'id, business_name, service_type, city, state, email, website_url'
+const REVIEW_SELECT = 'id, business_name, service_type, city, state, email, website_url, instagram_url, tiktok_url, youtube_url, facebook_url'
 
 export async function approveListing(formData: FormData) {
   const admin = await requireRole('admin')

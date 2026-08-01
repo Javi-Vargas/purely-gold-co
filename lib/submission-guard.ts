@@ -2,6 +2,7 @@ import { headers } from 'next/headers'
 import { createHash } from 'crypto'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { isValidStateCode } from '@/lib/us-locations'
+import { SOCIAL_KEYS } from '@/lib/social-links'
 
 // Shared abuse guard for the public /get-listed submission. Runs
 // before the listing is inserted and enforces, in order:
@@ -27,7 +28,10 @@ const MAX_LEN: Record<string, number> = {
   phone: 40,
   website_url: 300,
   portfolio_url: 300,
-  instagram_url: 200,
+  instagram_url: 300,
+  tiktok_url: 300,
+  youtube_url: 300,
+  facebook_url: 300,
   city: 80,
   state: 80,
   location: 120,
@@ -93,7 +97,7 @@ export async function guardSubmission(formData: FormData): Promise<GuardResult> 
 
   const phoneRaw = val(formData, 'phone')
   if (phoneRaw && !PHONE_RE.test(phoneRaw)) return { ok: false, error: 'invalid' }
-  for (const key of ['website_url', 'portfolio_url']) {
+  for (const key of ['website_url', 'portfolio_url', ...SOCIAL_KEYS]) {
     const u = val(formData, key)
     if (u && !/^https?:\/\//i.test(u)) return { ok: false, error: 'invalid' }
   }
