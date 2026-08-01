@@ -1,6 +1,6 @@
 'use client'
 
-import { useMemo, useState } from 'react'
+import { useMemo, useState, type ReactNode } from 'react'
 import Link from 'next/link'
 import { Card } from '@/components/ui/Card'
 import { Badge } from '@/components/ui/Badge'
@@ -34,6 +34,8 @@ const SERVICE_TYPE_ORDER = Object.keys(SERVICE_TYPE_LABELS) as ProviderServiceTy
 
 export function DirectoryListings({ listings }: { listings: DirectoryListing[] }) {
   const [serviceType, setServiceType] = useState<string>('all')
+  const [state, setState] = useState<string>('all')
+  const [city, setCity] = useState<string>('all')
   const [query, setQuery] = useState('')
 
   // Only offer types that actually have a listing, in enum order.
@@ -42,17 +44,41 @@ export function DirectoryListings({ listings }: { listings: DirectoryListing[] }
     return SERVICE_TYPE_ORDER.filter((t) => present.has(t))
   }, [listings])
 
+  // Only offer states that actually have a listing, alphabetical.
+  const availableStates = useMemo(() => {
+    const present = new Set(listings.map((l) => l.state).filter(Boolean) as string[])
+    return Array.from(present).sort((a, b) => a.localeCompare(b))
+  }, [listings])
+
+  // Cities depend on the chosen state: offer only cities present within it
+  // (or across everything when no state is selected).
+  const availableCities = useMemo(() => {
+    const pool = state === 'all' ? listings : listings.filter((l) => l.state === state)
+    const present = new Set(pool.map((l) => l.city).filter(Boolean) as string[])
+    return Array.from(present).sort((a, b) => a.localeCompare(b))
+  }, [listings, state])
+
+  // Changing state can invalidate the chosen city, so reset it.
+  function onStateChange(next: string) {
+    setState(next)
+    setCity('all')
+  }
+
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase()
     return listings.filter((l) => {
       const typeOk = serviceType === 'all' || l.service_type === serviceType
+      const stateOk = state === 'all' || l.state === state
+      const cityOk = city === 'all' || l.city === city
       const nameOk = q === '' || (l.business_name ?? '').toLowerCase().includes(q)
-      return typeOk && nameOk
+      return typeOk && stateOk && cityOk && nameOk
     })
-  }, [listings, serviceType, query])
+  }, [listings, serviceType, state, city, query])
 
   function clearFilters() {
     setServiceType('all')
+    setState('all')
+    setCity('all')
     setQuery('')
   }
 
@@ -71,28 +97,50 @@ export function DirectoryListings({ listings }: { listings: DirectoryListing[] }
       </div>
 
       {/* Filters */}
-      <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center">
-        <div className="relative sm:w-56">
-          <Select
-            aria-label="Filter by service type"
-            value={serviceType}
-            onChange={(e) => setServiceType(e.target.value)}
-            className="pr-10"
-          >
-            <option value="all">All types</option>
-            {availableTypes.map((t) => (
-              <option key={t} value={t}>
-                {serviceTypeLabel(t)}
-              </option>
-            ))}
-          </Select>
-          <ChevronDown
-            size={16}
-            className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-muted"
-          />
-        </div>
+      <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
+        <FilterSelect
+          ariaLabel="Filter by service type"
+          value={serviceType}
+          onChange={setServiceType}
+          className="sm:w-52"
+        >
+          <option value="all">All types</option>
+          {availableTypes.map((t) => (
+            <option key={t} value={t}>
+              {serviceTypeLabel(t)}
+            </option>
+          ))}
+        </FilterSelect>
 
-        <div className="relative sm:flex-1">
+        <FilterSelect
+          ariaLabel="Filter by state"
+          value={state}
+          onChange={onStateChange}
+          className="sm:w-44"
+        >
+          <option value="all">All states</option>
+          {availableStates.map((s) => (
+            <option key={s} value={s}>
+              {s}
+            </option>
+          ))}
+        </FilterSelect>
+
+        <FilterSelect
+          ariaLabel="Filter by city"
+          value={city}
+          onChange={setCity}
+          className="sm:w-44"
+        >
+          <option value="all">All cities</option>
+          {availableCities.map((c) => (
+            <option key={c} value={c}>
+              {c}
+            </option>
+          ))}
+        </FilterSelect>
+
+        <div className="relative sm:min-w-[12rem] sm:flex-1">
           <Search
             size={16}
             className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-muted"
@@ -202,5 +250,38 @@ export function DirectoryListings({ listings }: { listings: DirectoryListing[] }
         </div>
       )}
     </>
+  )
+}
+
+// A styled <Select> with the directory's chevron affordance. Shared by the
+// service-type, state, and city filters.
+function FilterSelect({
+  ariaLabel,
+  value,
+  onChange,
+  className,
+  children,
+}: {
+  ariaLabel: string
+  value: string
+  onChange: (value: string) => void
+  className?: string
+  children: ReactNode
+}) {
+  return (
+    <div className={`relative ${className ?? ''}`}>
+      <Select
+        aria-label={ariaLabel}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        className="pr-10"
+      >
+        {children}
+      </Select>
+      <ChevronDown
+        size={16}
+        className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-muted"
+      />
+    </div>
   )
 }
