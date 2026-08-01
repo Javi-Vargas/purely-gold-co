@@ -3,6 +3,9 @@
 .temp
 snippets
 
+# Local test seed — contains a test password hash, never commit
+seed.sql
+
 # dotenvx
 .env.keys
 .env.local
